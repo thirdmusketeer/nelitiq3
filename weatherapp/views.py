@@ -32,14 +32,8 @@ class WeatherView(View):
         return HttpResponse(template.render(context, request))
 
     def post(self, request, *args, **kwargs):
-        # form = WeatherForm(request.POST)
-        context = {
-            # "weather_form": form
-        }
-        # if form.is_valid():
-            # print(request.POST)
         lat = request.POST['lat']
         long = request.POST['long']
-        context['weather_info'] = get_weather_info(lat, long)
+        context = {'lat': lat, 'long': long, 'weather_info': get_weather_info(lat, long)}
         template = get_template('weather.html')
         return HttpResponse(template.render(context, request))

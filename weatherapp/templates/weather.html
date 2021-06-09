@@ -12,7 +12,7 @@
         <div class="w-full h-full rounded-md mx-auto bg-white my-4">
             <form class="flex space-x-2 justify-between p-3 bg-gray-600 rounded-t-sm" method="POST">
                 {% csrf_token %}
-                <input step="0.0000000000001" name="lat" class="w-1/3 border-2 pl-2 rounded-md" type="number" placeholder="Latitude">
+                <input  step="0.0000000000001" name="lat" class="w-1/3 border-2 pl-2 rounded-md" type="number" placeholder="Latitude">
                 <input step="0.0000000000001" name="long"  class="w-1/3 border-2 pl-2 rounded-md" type="number" placeholder="Longitude">
                 <div class="w-1/5">
                     <button class="text-gray-900 bg-yellow-300 rounded-md px-3 py-1 font-bold"type="submit">
@@ -21,9 +21,14 @@
                 </div>
             </form>
             <div class="w-full bg-yellow-300 p-3 overflow-y-scroll">
+                <div class="flex space-x-2">
+                    <span class="font-bold text-lg"> Lat: {{lat}}</span>
+                    <span class="font-bold text-lg"> Long: {{long}}</span>
+                </div>
                 <p class="text-center">
 <!--                    {{weather_info}}-->
 <!--                    Last Updated : {{weather_info.properties.meta.updated_at | date:"D d M Y"}}-->
+
                     Last Updated : {{ weather_info.properties.meta.updated_at }}
                 </p>
                 <table class="w-full border border-gray-600 max-h-screen overflow-y-scroll">
