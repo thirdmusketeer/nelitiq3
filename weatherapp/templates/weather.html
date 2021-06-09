@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+	{{ title }}
+{% endblock title %}
+{% block content %}
+<div class="w-screen min-h-screen bg-gray-900 mx-auto p-2">
+    <div class="w-11/12 mx-auto flex flex-col">
+        <h1 class="text-2xl font-bold text-center text-yellow-300">
+            Neliti Weather App
+        </h1>
+        <div class="w-full h-full rounded-md mx-auto bg-white my-4">
+            <form class="flex space-x-2 justify-between p-3 bg-gray-600 rounded-t-sm" method="POST">
+                {% csrf_token %}
+                <input step="0.0000000000001" name="lat" class="w-1/3 border-2 pl-2 rounded-md" type="number" placeholder="Latitude">
+                <input step="0.0000000000001" name="long"  class="w-1/3 border-2 pl-2 rounded-md" type="number" placeholder="Longitude">
+                <div class="w-1/5">
+                    <button class="text-gray-900 bg-yellow-300 rounded-md px-3 py-1 font-bold"type="submit">
+                        Go!
+                    </button>
+                </div>
+            </form>
+            <div class="w-full bg-yellow-300 p-3 overflow-y-scroll">
+                <p class="text-center">
+<!--                    {{weather_info}}-->
+<!--                    Last Updated : {{weather_info.properties.meta.updated_at | date:"D d M Y"}}-->
+                    Last Updated : {{ weather_info.properties.meta.updated_at }}
+                </p>
+                <table class="w-full border border-gray-600 max-h-screen overflow-y-scroll">
+                  <thead>
+                    <tr class=" border border-gray-600">
+                      <th class="p-2 border border-gray-600">Time</th>
+                      <th class="p-2 border border-gray-600">Sea Level Air Pressure</th>
+                      <th class="p-2 border border-gray-600">Air Temperature</th>
+                      <th class="p-2 border border-gray-600">Cloud Area Function</th>
+                      <th class="p-2 border border-gray-600">Relative Humidity</th>
+                      <th class="p-2 border border-gray-600">Wind From Direction</th>
+                      <th class="p-2 border border-gray-600">Wind Speed</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for row in weather_info.properties.timeseries %}
+                        <tr class=" border border-gray-600">
+                            <td class="p-2 border border-gray-600">{{row.time}}</td>
+                            <td class="p-2 border border-gray-600">{{row.data.instant.details.air_pressure_at_sea_level}}</td>
+                            <td class="p-2 border border-gray-600">{{row.data.instant.details.air_temperature}}</td>
+                            <td class="p-2 border border-gray-600">{{row.data.instant.details.cloud_area_fraction}}</td>
+                            <td class="p-2 border border-gray-600">{{row.data.instant.details.relative_humidity}}</td>
+                            <td class="p-2 border border-gray-600">{{row.data.instant.details.wind_from_direction}}</td>
+                            <td class="p-2 border border-gray-600">{{row.data.instant.details.wind_speed}}</td>
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<!--	<form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">-->
+
+<!--  </form>-->
+</div>
+<div role="separator" class="divider"></diV>
+{% endblock content %}
